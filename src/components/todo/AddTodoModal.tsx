@@ -2,7 +2,6 @@ import { Dialog, DialogClose } from "@radix-ui/react-dialog";
 import {
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -11,14 +10,22 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { FormEvent, useState } from "react";
+import { useAppDispatch } from "@/redux/hook";
+import { addTodo } from "@/redux/fetures/todoSlice";
 
 const AddTodoModal = () => {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
+  const dispatch = useAppDispatch();
+
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log({ task, description });
+    const taskDetails = {
+      title : task ,
+      description : description, 
+    };
+    dispatch(addTodo(taskDetails));
   };
 
   return (
