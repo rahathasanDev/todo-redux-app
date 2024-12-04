@@ -19,12 +19,16 @@ const AddTodoModal = () => {
   const dispatch = useAppDispatch();
 
 
+
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+    const randomString = Math.random().toString(36).substring(2,7 );
     const taskDetails = {
+      id : randomString,
       title : task ,
       description : description, 
     };
+    
     dispatch(addTodo(taskDetails));
   };
 
@@ -67,7 +71,7 @@ const AddTodoModal = () => {
                 />
               </div>
             </div>
-            <div>
+            <div className="flex justify-end">
               <DialogClose asChild>
                 <Button type="submit">Save changes</Button>
               </DialogClose>
