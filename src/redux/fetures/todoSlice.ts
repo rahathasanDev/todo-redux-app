@@ -3,33 +3,38 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 type TTodo = {
   id: string;
-  title:string;
-  description:string;
+  title: string;
+  description: string;
   isCompleted?: boolean;
 };
-type TInitialstate = { 
+type TInitialstate = {
   todos: TTodo[],
 };
 
-const initialState : TInitialstate = {
-  todos:[],
+const initialState: TInitialstate = {
+  todos: [],
 }
 
 export const todoSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
-    addTodo : (state,action : PayloadAction<TTodo>)=> {
-        state.todos.push({...action.payload, isCompleted:false });
+    addTodo: (state, action: PayloadAction<TTodo>) => {
+      state.todos.push({ ...action.payload, isCompleted: false });
     },
-    removeTodo : (state,action : PayloadAction<string>)=> {
-        state.todos = state.todos.filter((item)=>item.id != action.payload)
-    }
+    removeTodo: (state, action: PayloadAction<string>) => {
+      state.todos = state.todos.filter((item) => item.id != action.payload)
+    },
+    toggleComplete: (state, action : PayloadAction<string>) => {
+      const task = state.todos.find((item) => item.id == action.payload);
+      task!.isCompleted = !task?.isCompleted;
+
+    },
   },
 })
 
 // // Action creators are generated for each case reducer function
 // export const { } = counterSlice.actions
 
-export const {addTodo,removeTodo} = todoSlice.actions; 
+export const { addTodo, removeTodo ,toggleComplete } = todoSlice.actions;
 export default todoSlice.reducer;
