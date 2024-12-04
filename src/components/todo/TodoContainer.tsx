@@ -16,7 +16,7 @@ const TodoContainer = () => {
         <div className="bg-white p-5 space-y-3">
          {
           todos.map((item) => (
-            <TodoCard title={item.title} description={item.description}></TodoCard>
+            <TodoCard {...item}></TodoCard>
           ))
          }
         </div>
